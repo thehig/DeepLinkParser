@@ -1,0 +1,30 @@
+{
+	"folders":
+	[
+		{
+			"path": ".",
+			"file_exclude_patterns": [],
+			"folder_exclude_patterns": ["*"],
+		}, 
+
+		{
+			"path": "app",
+			"file_include_patterns": ["*.js"],
+		},
+
+		{
+			"path": "scripts",
+			"file_include_patterns": ["*.js", "*.coffee"],
+		},
+
+		{
+			"path": "specs/",
+			"name": "specs",
+			"file_include_patterns": [
+				"*.coffee",
+				"*fixture*",
+				// "*.disabled"
+			]
+		},
+	]
+}
