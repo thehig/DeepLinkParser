@@ -56,7 +56,7 @@ if (typeof module != 'undefined' && module.exports) {
                 /// returns the location name requested and the options to pass to WinJS.Navigation.navigate().
                 /// </return>
                 if (protocolActivationEventArguments &&
-                    protocolActivationEventArguments.detail.kind === activation.ActivationKind.protocol) {
+                    protocolActivationEventArguments.detail.kind) {
 
                     // Uri format: xbl-<title id>://<authority>/?contentId=123456&contentType=Movie&catalogData=<app specific data>
                     var activationUri = protocolActivationEventArguments.detail.uri;
@@ -76,7 +76,7 @@ if (typeof module != 'undefined' && module.exports) {
                         var contentId = "";
                         var deepLinkInfo = "";
                         var contentType = "";
-                        for (var i = 0; i < queryArgs.size; i++) {
+                        for (var i = 0; i < queryArgs.length; i++) {
                             var caseInsensitiveQueryArg = queryArgs[i].name.toLowerCase();
                             switch (caseInsensitiveQueryArg) {
                                 case _contentIdKey.toLowerCase():
@@ -93,7 +93,14 @@ if (typeof module != 'undefined' && module.exports) {
                             }
                         }
 
-                        var locationName = this.LocationName;
+                        var locationName = {
+                                mediaHelpUri: "mediaHelpUri",
+                                mediaHomeUri: "mediaHomeUri",
+                                mediaPlaybackUri: "mediaPlaybackUri",
+                                mediaSearchUri: "mediaSearchUri",
+                                mediaSettingsUri: "mediaSettingsUri",
+                                mediaDetailsUri: "mediaDetailsUri",
+                            };
 
                         // In case the contentId is null or empty we go to the app's homepage
                         if (!contentId)
