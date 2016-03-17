@@ -9,11 +9,27 @@ if (typeof module != 'undefined' && module.exports) {
 
     WinJS.Namespace.define("MyApp.Utilities.RainfallDeepLink", {
         parseDeepLink: function(args){
-            var protocolLaunchOptions = {};
+            // Set up the default location
+            var protocolLaunchOptions = {
+                locationName: XboxJS.Navigation.LocationName.mediaHomeUri
+            };
+
+            // Check the host, blank should just go home
+            var host = args.detail.uri.host;
+            if(!host) return protocolLaunchOptions;
 
             // Parse and store the args
             var protocolActivation = XboxJS.Navigation.parseProtocolActivation(args);
             protocolLaunchOptions.parsedActivation = protocolActivation;
+
+            // No protocol activation means the authority was invalid or unrecognised
+            if(!protocolActivation) {
+                protocolLaunchOptions.error = new Error("Invalid or unrecognised authority");
+                protocolLaunchOptions.error.code = "DL001";
+                return protocolLaunchOptions;
+            }
+
+
 
             return protocolLaunchOptions;
         }
