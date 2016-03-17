@@ -29,7 +29,16 @@ if (typeof module != 'undefined' && module.exports) {
                 return protocolLaunchOptions;
             }
 
+            // Store the parsed locationName from above. This should cover missing contentId
+            protocolLaunchOptions.locationName = protocolActivation.locationName;
 
+            // If the location says home, we return home
+            if(protocolLaunchOptions.locationName === XboxJS.Navigation.LocationName.mediaHomeUri)
+                return protocolLaunchOptions;
+
+            // After the above, we know we have a deep-link that does not direct to the home page.
+            if(protocolLaunchOptions.locationName !== XboxJS.Navigation.LocationName.mediaDetailsUri)
+                protocolLaunchOptions.locationName = XboxJS.Navigation.LocationName.mediaDetailsUri;
 
             return protocolLaunchOptions;
         }
