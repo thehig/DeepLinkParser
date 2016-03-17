@@ -90,3 +90,105 @@ describe.only "050. Certification Tests - MyApp.Utilities.RainfallDeepLink.parse
 						expect(parsedActivation).to.have.property('locationName', locationName.mediaDetailsUri)
 						expect(parsedActivation).to.have.property('contentId', 289)
 						expect(parsedActivation).to.have.property('contentType', XboxJS.Data.ContentType.tvEpisode)
+
+	describe "Data Pairs", ->
+		describe "should go to mediaDetailsUri given", ->
+			# These tests are ugly and could be refactored, but I'm eager to make progress elsewhere
+			it "media-details -- tvSeries -- 289", ->
+				args.detail.uri.host = 'media-details'
+				args.detail.uri.queryParsed.push({name: 'contentType',value: 'tvSeries'})
+				args.detail.uri.queryParsed.push({name: 'contentId',value: '289'})
+				parsedActivation = parse(args) 
+				expect(parsedActivation).to.have.property('locationName', locationName.mediaDetailsUri)
+				expect(parsedActivation).to.have.property('contentId', 289)
+				expect(parsedActivation).to.have.property('contentType', XboxJS.Data.ContentType.tvSeries)
+			it "media-details -- 289 -- tvSeries", ->
+				args.detail.uri.host = 'media-details'
+				args.detail.uri.queryParsed.push({name: 'contentId',value: '289'})
+				args.detail.uri.queryParsed.push({name: 'contentType',value: 'tvSeries'})
+				parsedActivation = parse(args) 
+				expect(parsedActivation).to.have.property('locationName', locationName.mediaDetailsUri)
+				expect(parsedActivation).to.have.property('contentId', 289)
+				expect(parsedActivation).to.have.property('contentType', XboxJS.Data.ContentType.tvSeries)
+			it "media-playback -- tvSeries -- 289", ->
+				args.detail.uri.host = 'media-playback'
+				args.detail.uri.queryParsed.push({name: 'contentType',value: 'tvSeries'})
+				args.detail.uri.queryParsed.push({name: 'contentId',value: '289'})
+				parsedActivation = parse(args) 
+				expect(parsedActivation).to.have.property('locationName', locationName.mediaDetailsUri)
+				expect(parsedActivation).to.have.property('contentId', 289)
+				expect(parsedActivation).to.have.property('contentType', XboxJS.Data.ContentType.tvSeries)
+			it "media-playback -- 289 -- tvSeries", ->
+				args.detail.uri.host = 'media-playback'
+				args.detail.uri.queryParsed.push({name: 'contentId',value: '289'})
+				args.detail.uri.queryParsed.push({name: 'contentType',value: 'tvSeries'})
+				parsedActivation = parse(args) 
+				expect(parsedActivation).to.have.property('locationName', locationName.mediaDetailsUri)
+				expect(parsedActivation).to.have.property('contentId', 289)
+				expect(parsedActivation).to.have.property('contentType', XboxJS.Data.ContentType.tvSeries)
+
+			it "media-details -- tvSeason -- 289", ->
+				args.detail.uri.host = 'media-details'
+				args.detail.uri.queryParsed.push({name: 'contentType',value: 'tvSeason'})
+				args.detail.uri.queryParsed.push({name: 'contentId',value: '289'})
+				parsedActivation = parse(args) 
+				expect(parsedActivation).to.have.property('locationName', locationName.mediaDetailsUri)
+				expect(parsedActivation).to.have.property('contentId', 289)
+				expect(parsedActivation).to.have.property('contentType', XboxJS.Data.ContentType.tvSeason)
+			it "media-details -- 289 -- tvSeason", ->
+				args.detail.uri.host = 'media-details'
+				args.detail.uri.queryParsed.push({name: 'contentId',value: '289'})
+				args.detail.uri.queryParsed.push({name: 'contentType',value: 'tvSeason'})
+				parsedActivation = parse(args) 
+				expect(parsedActivation).to.have.property('locationName', locationName.mediaDetailsUri)
+				expect(parsedActivation).to.have.property('contentId', 289)
+				expect(parsedActivation).to.have.property('contentType', XboxJS.Data.ContentType.tvSeason)
+			it "media-playback -- tvSeason -- 289", ->
+				args.detail.uri.host = 'media-playback'
+				args.detail.uri.queryParsed.push({name: 'contentType',value: 'tvSeason'})
+				args.detail.uri.queryParsed.push({name: 'contentId',value: '289'})
+				parsedActivation = parse(args) 
+				expect(parsedActivation).to.have.property('locationName', locationName.mediaDetailsUri)
+				expect(parsedActivation).to.have.property('contentId', 289)
+				expect(parsedActivation).to.have.property('contentType', XboxJS.Data.ContentType.tvSeason)
+			it "media-playback -- 289 -- tvSeason", ->
+				args.detail.uri.host = 'media-playback'
+				args.detail.uri.queryParsed.push({name: 'contentId',value: '289'})
+				args.detail.uri.queryParsed.push({name: 'contentType',value: 'tvSeason'})
+				parsedActivation = parse(args) 
+				expect(parsedActivation).to.have.property('locationName', locationName.mediaDetailsUri)
+				expect(parsedActivation).to.have.property('contentId', 289)
+				expect(parsedActivation).to.have.property('contentType', XboxJS.Data.ContentType.tvSeason)
+
+			it "media-details -- tvEpisode -- 289", ->
+				args.detail.uri.host = 'media-details'
+				args.detail.uri.queryParsed.push({name: 'contentType',value: 'tvEpisode'})
+				args.detail.uri.queryParsed.push({name: 'contentId',value: '289'})
+				parsedActivation = parse(args) 
+				expect(parsedActivation).to.have.property('locationName', locationName.mediaDetailsUri)
+				expect(parsedActivation).to.have.property('contentId', 289)
+				expect(parsedActivation).to.have.property('contentType', XboxJS.Data.ContentType.tvEpisode)
+			it "media-details -- 289 -- tvEpisode", ->
+				args.detail.uri.host = 'media-details'
+				args.detail.uri.queryParsed.push({name: 'contentId',value: '289'})
+				args.detail.uri.queryParsed.push({name: 'contentType',value: 'tvEpisode'})
+				parsedActivation = parse(args) 
+				expect(parsedActivation).to.have.property('locationName', locationName.mediaDetailsUri)
+				expect(parsedActivation).to.have.property('contentId', 289)
+				expect(parsedActivation).to.have.property('contentType', XboxJS.Data.ContentType.tvEpisode)
+			it "media-playback -- tvEpisode -- 289", ->
+				args.detail.uri.host = 'media-playback'
+				args.detail.uri.queryParsed.push({name: 'contentType',value: 'tvEpisode'})
+				args.detail.uri.queryParsed.push({name: 'contentId',value: '289'})
+				parsedActivation = parse(args) 
+				expect(parsedActivation).to.have.property('locationName', locationName.mediaDetailsUri)
+				expect(parsedActivation).to.have.property('contentId', 289)
+				expect(parsedActivation).to.have.property('contentType', XboxJS.Data.ContentType.tvEpisode)
+			it "media-playback -- 289 -- tvEpisode", ->
+				args.detail.uri.host = 'media-playback'
+				args.detail.uri.queryParsed.push({name: 'contentId',value: '289'})
+				args.detail.uri.queryParsed.push({name: 'contentType',value: 'tvEpisode'})
+				parsedActivation = parse(args) 
+				expect(parsedActivation).to.have.property('locationName', locationName.mediaDetailsUri)
+				expect(parsedActivation).to.have.property('contentId', 289)
+				expect(parsedActivation).to.have.property('contentType', XboxJS.Data.ContentType.tvEpisode)
