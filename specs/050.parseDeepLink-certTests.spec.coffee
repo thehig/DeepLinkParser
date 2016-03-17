@@ -17,40 +17,76 @@ describe.only "050. Certification Tests - MyApp.Utilities.RainfallDeepLink.parse
 		    queryParsed: []
 
 	describe "Authorities", ->
-		it "must support blank to home", ->
-			expect(parse(args)).to.have.property('locationName', locationName.mediaHomeUri)
-		it "must support default to home", ->
-			args.detail.uri.host = 'default'
-			expect(parse(args)).to.have.property('locationName', locationName.mediaHomeUri)
-		it "media-settings to home if not supported", ->
-			args.detail.uri.host = 'media-settings'
-			expect(parse(args)).to.have.property('locationName', locationName.mediaHomeUri)
-		it "media-help to home if not supported", ->
-			args.detail.uri.host = 'media-help'
-			expect(parse(args)).to.have.property('locationName', locationName.mediaHomeUri)
-		it "media-search to home if not supported", ->
-			args.detail.uri.host = 'media-search'
-			expect(parse(args)).to.have.property('locationName', locationName.mediaHomeUri)
+		describe "should go to mediaHomeUri if authority is", ->
+			it "blank", ->
+				expect(parse(args)).to.have.property('locationName', locationName.mediaHomeUri)
+			it "default", ->
+				args.detail.uri.host = 'default'
+				expect(parse(args)).to.have.property('locationName', locationName.mediaHomeUri)
 
-		describe "with no contentId but authority", ->
-			it "media-details to home", ->
+		describe "should go to mediaHomeUri if required but unsupported authority", ->
+			it "media-settings", ->
+				args.detail.uri.host = 'media-settings'
+				expect(parse(args)).to.have.property('locationName', locationName.mediaHomeUri)
+			it "media-help", ->
+				args.detail.uri.host = 'media-help'
+				expect(parse(args)).to.have.property('locationName', locationName.mediaHomeUri)
+			it "media-search", ->
+				args.detail.uri.host = 'media-search'
+				expect(parse(args)).to.have.property('locationName', locationName.mediaHomeUri)
+
+		describe "should go to mediaHomeUri with no contentId and authority", ->
+			it "media-details", ->
 				args.detail.uri.host = 'media-details'
 				expect(parse(args)).to.have.property('locationName', locationName.mediaHomeUri)
-			it "media-playback to home", ->
+			it "media-playback", ->
 				args.detail.uri.host = 'media-playback'
 				expect(parse(args)).to.have.property('locationName', locationName.mediaHomeUri)
 
-		describe "with contentId 289, contentType tvSeries and authority", ->
-			beforeEach -> 
-				args.detail.uri.queryParsed.push({name: 'contentId',value: '289'})
-				args.detail.uri.queryParsed.push({name: 'contentType',value: 'tvSeries'})
-			it "media-details to content", ->
-				args.detail.uri.host = 'media-details'
-				expect(parse(args)).to.have.property('locationName', locationName.mediaDetailsUri)
-				expect(parse(args)).to.have.property('contentId', 289)
-				expect(parse(args)).to.have.property('contentType', XboxJS.Data.ContentType.tvSeries)
-			it "media-playback to content", ->
-				args.detail.uri.host = 'media-playback'
-				expect(parse(args)).to.have.property('locationName', locationName.mediaDetailsUri)
-				expect(parse(args)).to.have.property('contentId', 289)
-				expect(parse(args)).to.have.property('contentType', XboxJS.Data.ContentType.tvSeries)
+		describe "should go to mediaDetailsUri with contentId 289", ->
+			beforeEach -> args.detail.uri.queryParsed.push({name: 'contentId',value: '289'})
+			describe "contentType tvSeries", ->
+				beforeEach -> args.detail.uri.queryParsed.push({name: 'contentType',value: 'tvSeries'})
+				describe "and authority", ->
+					it "media-details", ->
+						args.detail.uri.host = 'media-details'
+						parsedActivation = parse(args) 
+						expect(parsedActivation).to.have.property('locationName', locationName.mediaDetailsUri)
+						expect(parsedActivation).to.have.property('contentId', 289)
+						expect(parsedActivation).to.have.property('contentType', XboxJS.Data.ContentType.tvSeries)
+					it "media-playback", ->
+						args.detail.uri.host = 'media-playback'
+						parsedActivation = parse(args) 
+						expect(parsedActivation).to.have.property('locationName', locationName.mediaDetailsUri)
+						expect(parsedActivation).to.have.property('contentId', 289)
+						expect(parsedActivation).to.have.property('contentType', XboxJS.Data.ContentType.tvSeries)
+			describe "contentType tvSeason", ->
+				beforeEach -> args.detail.uri.queryParsed.push({name: 'contentType',value: 'tvSeason'})
+				describe " and authority", ->
+					it "media-details", ->
+						args.detail.uri.host = 'media-details'
+						parsedActivation = parse(args) 
+						expect(parsedActivation).to.have.property('locationName', locationName.mediaDetailsUri)
+						expect(parsedActivation).to.have.property('contentId', 289)
+						expect(parsedActivation).to.have.property('contentType', XboxJS.Data.ContentType.tvSeason)
+					it "media-playback", ->
+						args.detail.uri.host = 'media-playback'
+						parsedActivation = parse(args) 
+						expect(parsedActivation).to.have.property('locationName', locationName.mediaDetailsUri)
+						expect(parsedActivation).to.have.property('contentId', 289)
+						expect(parsedActivation).to.have.property('contentType', XboxJS.Data.ContentType.tvSeason)
+			describe "contentType tvEpisode", ->
+				beforeEach -> args.detail.uri.queryParsed.push({name: 'contentType',value: 'tvEpisode'})
+				describe " and authority", ->
+					it "media-details", ->
+						args.detail.uri.host = 'media-details'
+						parsedActivation = parse(args) 
+						expect(parsedActivation).to.have.property('locationName', locationName.mediaDetailsUri)
+						expect(parsedActivation).to.have.property('contentId', 289)
+						expect(parsedActivation).to.have.property('contentType', XboxJS.Data.ContentType.tvEpisode)
+					it "media-playback", ->
+						args.detail.uri.host = 'media-playback'
+						parsedActivation = parse(args) 
+						expect(parsedActivation).to.have.property('locationName', locationName.mediaDetailsUri)
+						expect(parsedActivation).to.have.property('contentId', 289)
+						expect(parsedActivation).to.have.property('contentType', XboxJS.Data.ContentType.tvEpisode)
