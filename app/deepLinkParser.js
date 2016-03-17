@@ -44,23 +44,44 @@ if (typeof module != 'undefined' && module.exports) {
         },
         parseDataPair: function(protocolLaunchOptions){
             // locationName is definitely mediaDetailsUri
-            // contentID is definitely present, but not necessarily valid
+            // contentId is definitely present, but not necessarily valid
             // contentType is unknown
 
-            var contentId = parseInt(protocolLaunchOptions.parsedActivation.contentId);
+            var contentId = parseInt(protocolLaunchOptions.parsedActivation.options.contentId);
             if(!contentId || contentId < 1) {                
                 protocolLaunchOptions.error = new Error("Invalid or unrecognised contentId");
                 protocolLaunchOptions.error.code = "DL002";
                 return protocolLaunchOptions;
             }
 
+            // contentId is definitely a positive integer
+            protocolLaunchOptions.contentId = contentId;
+
+            // Now we check the contentType
+            var contentType = protocolLaunchOptions.parsedActivation.options.contentType;
+            if(!contentType || (contentType !== XboxJS.Data.ContentType.tvSeries &&
+                                contentType !== XboxJS.Data.ContentType.tvSeason &&
+                                contentType !== XboxJS.Data.ContentType.tvEpisode)){
+                protocolLaunchOptions.error = new Error("Invalid or unsupported contentType");
+                protocolLaunchOptions.error.code = "DL003";
+                return protocolLaunchOptions;
+            }
+
+            // contentType is definitely tvSeries, tvSeason or tvEpisode
+            protocolLaunchOptions.contentType = contentType;
+
+            // This forms a valid data pair
             return protocolLaunchOptions;
         },
         parseDeepLink: function(args){
             var authority = MyApp.Utilities.RainfallDeepLink.parseAuthority(args);
             if(authority.error || authority.locationName === XboxJS.Navigation.LocationName.mediaHomeUri)
                 return authority;
+
             var dataPair = MyApp.Utilities.RainfallDeepLink.parseDataPair(authority);
+            if(dataPair.error || dataPair.locationName === XboxJS.Navigation.LocationName.mediaHomeUri)
+                return dataPair;
+
             return dataPair;
         }
     });
