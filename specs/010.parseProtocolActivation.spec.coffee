@@ -79,7 +79,7 @@ describe "010. XboxJS.Navigation.parseProtocolActivation", ->
 		it "contentType", -> expect(parse(args).options).to.have.property('contentType', 'anythingAtAll')
 		it "deepLinkInfo", -> expect(parse(args).options).to.have.property('deepLinkInfo', 'WhateverYouWant')
 
-	describe "should ignore unrecognised params like", ->
+	describe "should ignore unrecognised params", ->
 		beforeEach -> # Add stupid queryParams
 			args.detail.uri.host = 'media-details'
 			args.detail.uri.queryParsed.push({name: 'thisShouldBeIgnored',value: 'ShouldBeIgnored'})
