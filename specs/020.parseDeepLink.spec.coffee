@@ -2,7 +2,7 @@ require('../app/deepLinkParser');
 expect = require('chai').expect
 w = console.log
 
-parse = MyApp.Utilities.RainfallDeepLink.parseDeepLinkMoreBetterer
+parse = MyApp.Utilities.RainfallDeepLink.parseDeepLink
 locationName = XboxJS.Navigation.LocationName
 
 describe "020. Wrapping XboxJS.Navigation.parseProtocolActivation", ->

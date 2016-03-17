@@ -1,8 +1,66 @@
 if (typeof module != 'undefined' && module.exports) {
     WinJS = require("node-winjs");
 }
-// Activation Services, from Xbox.js:13
 
+
+// ContentTypes from Xbox.js:1873
+(function dataProviderInit() {
+    "use strict";
+
+    WinJS.Namespace.define("XboxJS.Data.ContentType", {
+        /// <field type="String" locid="XboxJS.Data.ContentType.album" helpKeyword="XboxJS.Data.ContentType.album">
+        /// Album content type.
+        /// </field>
+        album: "album",
+
+        /// <field type="String" locid="XboxJS.Data.ContentType.movie" helpKeyword="XboxJS.Data.ContentType.movie">
+        /// Movie content type.
+        /// </field>
+        movie: "movie",
+
+        /// <field type="String" locid="XboxJS.Data.ContentType.musicArtist" helpKeyword="XboxJS.Data.ContentType.musicArtist">
+        /// Movie content type.
+        /// </field>
+        musicArtist: "musicArtist",
+
+        /// <field type="String" locid="XboxJS.Data.ContentType.track" helpKeyword="XboxJS.Data.ContentType.track">
+        /// Track content type.
+        /// </field>
+        track: "track",
+
+        /// <field type="String" locid="XboxJS.Data.ContentType.tvShow" helpKeyword="XboxJS.Data.ContentType.tvShow">
+        /// TV Show content type.
+        /// </field>
+        tvShow: "tvShow",
+
+        /// <field type="String" locid="XboxJS.Data.ContentType.tvEpisode" helpKeyword="XboxJS.Data.ContentType.tvEpisode">
+        /// TV Episode content type.
+        /// </field>
+        tvEpisode: "tvEpisode",
+
+        /// <field type="String" locid="XboxJS.Data.ContentType.tvSeries" helpKeyword="XboxJS.Data.ContentType.tvSeries">
+        /// TV Series content type.
+        /// </field>
+        tvSeries: "tvSeries",
+
+        /// <field type="String" locid="XboxJS.Data.ContentType.tvSeason" helpKeyword="XboxJS.Data.ContentType.tvSeason">
+        /// TV Season content type.
+        /// </field>
+        tvSeason: "tvSeason",
+
+        /// <field type="String" locid="XboxJS.Data.ContentType.webVideo" helpKeyword="XboxJS.Data.ContentType.webVideo">
+        /// Short form web content or user generated video.
+        /// </field>
+        webVideo: "webVideo",
+
+        /// <field type="String" locid="XboxJS.Data.ContentType.webVideoCollection" helpKeyword="XboxJS.Data.ContentType.webVideoCollection">
+        /// A collection of web videos such as videos from a playlist or in a subscription.
+        /// </field>
+        webVideoCollection: "webVideoCollection"
+    });
+})();
+
+// Activation Services, from Xbox.js:13
 (function activationServicesInit(WinJS, XboxJS) {
     "use strict";
 
