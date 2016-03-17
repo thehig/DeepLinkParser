@@ -5,7 +5,7 @@ w = console.log
 parse = MyApp.Utilities.RainfallDeepLink.parseDeepLink
 locationName = XboxJS.Navigation.LocationName
 
-describe.only "030. MyApp.Utilities.RainfallDeepLink.parseDeepLink", ->
+describe "030. Authority Parsing - MyApp.Utilities.RainfallDeepLink.parseDeepLink", ->
 	args = undefined
 	beforeEach ->
 		# Since we don't have the Xbox to parse the deepLink for us, 
@@ -36,9 +36,9 @@ describe.only "030. MyApp.Utilities.RainfallDeepLink.parseDeepLink", ->
 			args.detail.uri.host = 'media-search'
 			expect(parse(args)).to.have.property('locationName', expected)
 
-	describe "should get mediaDetailsUri from authorities with contentId", ->
+	describe "should get mediaDetailsUri from authorities (with contentId)", ->
 		expected = locationName.mediaDetailsUri
-		beforeEach -> # Add required queryParams contentId, otherwise everything will go home
+		beforeEach -> # Add required queryParam contentId, otherwise everything will go to mediaHomeUri
 			args.detail.uri.queryParsed.push({name: 'contentId',value: 'requiredValue'})
 
 		it "media-details", ->

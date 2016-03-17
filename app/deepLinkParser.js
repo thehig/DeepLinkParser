@@ -8,7 +8,7 @@ if (typeof module != 'undefined' && module.exports) {
     "use strict";
 
     WinJS.Namespace.define("MyApp.Utilities.RainfallDeepLink", {
-        parseDeepLink: function(args){
+        parseAuthority: function(args){
             // Set up the default location
             var protocolLaunchOptions = {
                 locationName: XboxJS.Navigation.LocationName.mediaHomeUri
@@ -41,6 +41,27 @@ if (typeof module != 'undefined' && module.exports) {
                 protocolLaunchOptions.locationName = XboxJS.Navigation.LocationName.mediaDetailsUri;
 
             return protocolLaunchOptions;
+        },
+        parseDataPair: function(protocolLaunchOptions){
+            // locationName is definitely mediaDetailsUri
+            // contentID is definitely present, but not necessarily valid
+            // contentType is unknown
+
+            var contentId = parseInt(protocolLaunchOptions.parsedActivation.contentId);
+            if(!contentId || contentId < 1) {                
+                protocolLaunchOptions.error = new Error("Invalid or unrecognised contentId");
+                protocolLaunchOptions.error.code = "DL002";
+                return protocolLaunchOptions;
+            }
+
+            return protocolLaunchOptions;
+        },
+        parseDeepLink: function(args){
+            var authority = MyApp.Utilities.RainfallDeepLink.parseAuthority(args);
+            if(authority.error || authority.locationName === XboxJS.Navigation.LocationName.mediaHomeUri)
+                return authority;
+            var dataPair = MyApp.Utilities.RainfallDeepLink.parseDataPair(authority);
+            return dataPair;
         }
     });
 })();
