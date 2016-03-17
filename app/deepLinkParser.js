@@ -37,6 +37,7 @@ if (typeof module != 'undefined' && module.exports) {
                 return protocolLaunchOptions;
 
             // After the above, we know we have a deep-link that does not direct to the home page.
+            //  we redirect all links past this point, to the media-details page (covers media-playback)
             if(protocolLaunchOptions.locationName !== XboxJS.Navigation.LocationName.mediaDetailsUri)
                 protocolLaunchOptions.locationName = XboxJS.Navigation.LocationName.mediaDetailsUri;
 

@@ -42,6 +42,8 @@ describe "040. Data Pair Parsing - MyApp.Utilities.RainfallDeepLink.parseDeepLin
 			args.detail.uri.host = 'media-details'			
 			args.detail.uri.queryParsed.push({name: 'contentId',value: '289'})
 
+		it "undefined", ->
+			expect(parse(args).error).to.have.property('code', 'DL003')
 		it "album", ->
 			args.detail.uri.queryParsed.push({name: 'contentType',value: 'album'})
 			expect(parse(args).error).to.have.property('code', 'DL003')
