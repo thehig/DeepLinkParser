@@ -47,8 +47,6 @@ if (typeof module != 'undefined' && module.exports) {
 
             // No protocol activation means the authority was invalid or unrecognised
             if(!protocolActivation) {
-                protocolLaunchOptions.error = new Error("Invalid or unrecognised authority");
-                protocolLaunchOptions.error.code = "DL001";
                 return protocolLaunchOptions;
             }
 

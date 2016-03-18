@@ -177,13 +177,6 @@ describe "050. Certification Tests - MyApp.Utilities.RainfallDeepLink.parseDeepL
 
 	describe "Error Handling", ->
 		describe "Malformed", ->
-			describe "DL001", ->
-				it "invalid authority 99vonb", ->
-					args.detail.uri.host = '99vonb'
-					expect(parse(args).error).to.have.property('code', 'DL001')
-				it "invalid authority vonbismark", ->
-					args.detail.uri.host = 'vonbismark'
-					expect(parse(args).error).to.have.property('code', 'DL001')
 			describe "Home", ->
 				it "unsupported authority media-search", ->
 					args.detail.uri.host = 'media-search'
@@ -194,6 +187,14 @@ describe "050. Certification Tests - MyApp.Utilities.RainfallDeepLink.parseDeepL
 				it "unsupported authority media-settings", ->
 					args.detail.uri.host = 'media-settings'
 					expect(parse(args)).to.have.property('locationName', locationName.mediaHomeUri)
+				it "invalid authority 99vonb", ->
+					args.detail.uri.host = '99vonb'
+					expect(parse(args)).to.have.property('locationName', locationName.mediaHomeUri)
+					expect(parse(args)).to.not.have.property('error')
+				it "invalid authority vonbismark", ->
+					args.detail.uri.host = 'vonbismark'
+					expect(parse(args)).to.have.property('locationName', locationName.mediaHomeUri)
+					expect(parse(args)).to.not.have.property('error')
 		describe "Missing or invalid content pair", ->
 			beforeEach -> args.detail.uri.host = 'media-details'	
 			describe "DL002 - ContentID", ->

@@ -35,6 +35,14 @@ describe "030. Authority Parsing - MyApp.Utilities.RainfallDeepLink.parseDeepLin
 		it "media-search", ->
 			args.detail.uri.host = 'media-search'
 			expect(parse(args)).to.have.property('locationName', expected)
+		it "vonbismark", ->
+			args.detail.uri.host = 'vonbismark'
+			expect(parse(args)).to.not.have.property('error')
+			expect(parse(args)).to.have.property('locationName', locationName.mediaHomeUri)
+		it "99vonb", ->
+			args.detail.uri.host = '99vonb'
+			expect(parse(args)).to.not.have.property('error')
+			expect(parse(args)).to.have.property('locationName', locationName.mediaHomeUri)
 
 	describe "should get mediaDetailsUri from authorities (with contentId)", ->
 		expected = locationName.mediaDetailsUri
@@ -47,25 +55,3 @@ describe "030. Authority Parsing - MyApp.Utilities.RainfallDeepLink.parseDeepLin
 		it "media-playback", ->
 			args.detail.uri.host = 'media-playback'
 			expect(parse(args)).to.have.property('locationName', expected)
-
-	describe "should return DL001 and mediaHomeUri for invalid authority", ->
-		it "vonbismark", ->
-			args.detail.uri.host = 'vonbismark'
-			expect(parse(args).error).to.have.property('code', 'DL001')
-			expect(parse(args)).to.have.property('locationName', locationName.mediaHomeUri)
-		it "99vonb", ->
-			args.detail.uri.host = '99vonb'
-			expect(parse(args).error).to.have.property('code', 'DL001')
-			expect(parse(args)).to.have.property('locationName', locationName.mediaHomeUri)
-
-	# describe "when given contentType='tvSeries' and contentId='289'", ->
-	# 	beforeEach -> 
-	# 		args.detail.uri.host = 'media-details'
-
-	# 		args.detail.uri.queryParsed.push({name: 'contentId',value: 289})
-	# 		args.detail.uri.queryParsed.push({name: 'contentType',value: 'tvSeries'})
-
-	# 	it "should return a postProcess", ->
-	# 		r = parse(args)
-	# 		w(r)
-	# 		expect(r).to.have.property('postProcess')
